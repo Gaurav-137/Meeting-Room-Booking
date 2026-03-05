@@ -21,5 +21,3 @@ React · Vite · Vanilla CSS
 npm install
 npm run dev
 ```
-
-Opens at `http://localhost:5175`
