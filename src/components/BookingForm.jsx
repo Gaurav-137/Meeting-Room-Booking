@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { ROOMS, TIME_SLOTS } from "../data/rooms";
 import { minutesToDisplay, timeToMinutes } from "../utils/bookingUtils";
 
@@ -195,7 +196,7 @@ const BookingForm = ({ onSubmit, onCancel, editingBooking, errors, successMessag
       </div>
       <div className="form-body">
         {successMessage && <div className="alert-success-custom">{successMessage}</div>}
-        {errors.overlap && (
+        {errors.overlap && createPortal(
           <div className="conflict-popup-overlay" onClick={() => onClearMessages?.()}>
             <div className="conflict-popup" onClick={e => e.stopPropagation()}>
               <div className="conflict-popup-icon">⚠️</div>
@@ -203,7 +204,8 @@ const BookingForm = ({ onSubmit, onCancel, editingBooking, errors, successMessag
               <p className="conflict-popup-msg">{errors.overlap}</p>
               <button className="conflict-popup-btn" onClick={() => onClearMessages?.()}>Got it</button>
             </div>
-          </div>
+          </div>,
+          document.body
         )}
 
         {field("title", "Meeting Title", true,
